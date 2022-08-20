@@ -22,10 +22,34 @@ class Question extends Model
     }
 
     /**
+     * ACCESSOR
+     */
+    public function getUrlAttribute()
+    {
+        return "questions/$this->id";
+    }
+
+    public function getCreatedDateAttribute()
+    {
+        return $this->created_at->diffForHumans();
+    }
+
+    public function getStylesForAnswerAttribute()
+    {
+        if ($this->answers_count > 0) {
+            if ($this->best_answer_id)
+                return 'has-best-answer';
+            else
+                return 'answered';
+        }
+        return 'unanswered';
+    }
+
+    /**
      * RELATIONSHIP METHODS
      */
     public function owner()
     {
-        $this->belongsTo(User::class, 'user_id');
+        return $this->belongsTo(User::class, 'user_id');
     }
 }
