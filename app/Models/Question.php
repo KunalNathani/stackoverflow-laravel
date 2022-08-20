@@ -10,7 +10,16 @@ class Question extends Model
 {
     use HasFactory;
 
-    protected $guarded = [];
+    protected $guarded = ['id'];
+
+    /**
+     * MUTATORS
+     */
+    public function setTitleAttribute($title)
+    {
+        $this->attributes['title'] = $title;
+        $this->attributes['slug'] = Str::slug($title);
+    }
 
     /**
      * RELATIONSHIP METHODS
