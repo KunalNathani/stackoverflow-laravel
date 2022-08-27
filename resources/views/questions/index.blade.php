@@ -70,7 +70,7 @@
                                         <span class="text-muted">{{ $question->created_date }}</span>
                                     </p>
                                     <p class="card-body">
-                                        {{ \Illuminate\Support\Str::limit($question->body, 250) }}
+                                        {!! \Illuminate\Support\Str::limit($question->body, 250) !!}
                                     </p>
                                 </div>
                             </div>
