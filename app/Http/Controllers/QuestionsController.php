@@ -42,7 +42,14 @@ class QuestionsController extends Controller
      */
     public function store(CreateQuestionRequest $request)
     {
-        //
+        auth()->user()->questions()->create([
+            'title' => $request->title,
+            'body' => $request->body
+        ]);
+
+        session()->flash('status', 'success');
+        session()->flash('message', 'Question has been reported to all our expert users!');
+        return redirect(route('questions.index'));
     }
 
     /**
