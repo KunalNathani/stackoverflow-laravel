@@ -17,12 +17,20 @@
                             @csrf
                             <div class="form-group mb-3">
                                 <label for="title">Title</label>
-                                <input type="text" class="form-control" placeholder="Enter Question Title" name="title" id="title" />
+                                <input type="text" placeholder="Enter Question Title" name="title" id="title"
+                                        class="form-control {{ $errors->has('title') ? 'is-invalid' : '' }}"/>
+                                @error('title')
+                                    <span class="text-danger">{{ $message }}</span>
+                                @enderror
                             </div>
                             <div class="form-group mb-3">
                                 <label for="body">Question</label>
-                                <input type="hidden" class="form-control"  name="body" id="body" />
-                                <trix-editor input="body" placeholder="Ask your question" class="form-control"></trix-editor>
+                                <input type="hidden" name="body" id="body"/>
+                                <trix-editor input="body" placeholder="Ask your question"
+                                             class="form-control {{ $errors->has('body') ? 'is-invalid' : '' }}"></trix-editor>
+                                @error('body')
+                                    <span class="text-danger">{{ $message }}</span>
+                                @enderror
                             </div>
 
                             <div class="form-group mb-3">
