@@ -30,8 +30,11 @@
 @endsection
 
 @section('content')
-    <div class="container">
-        <div class="row">
+    <div class="container py-5">
+        <div class="row justify-content-center">
+            <div class="d-flex justify-content-end">
+                <a href="{{ route('questions.create') }}" class="btn btn-outline-primary mb-3">Ask a Question!</a>
+            </div>
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-header">All Questions</div>
