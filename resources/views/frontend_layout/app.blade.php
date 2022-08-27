@@ -10,6 +10,13 @@
     @yield('page-level-styles')
 </head>
 <body>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                @include('frontend_layout.partials._message')
+            </div>
+        </div>
+    </div>
     @yield('content')
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.2.0/js/bootstrap.min.js"></script>
     @yield('page-level-scripts')
