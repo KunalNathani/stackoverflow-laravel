@@ -6,6 +6,7 @@ use App\Http\Requests\CreateQuestionRequest;
 use App\Http\Requests\UpdateQuestionRequest;
 use App\Models\Question;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 
 class QuestionsController extends Controller
 {
@@ -73,7 +74,10 @@ class QuestionsController extends Controller
      */
     public function edit(Question $question)
     {
-        return view('questions.edit', compact(['question']));
+        if(Gate::allows('update-question', $question)) {
+            return view('questions.edit', compact(['question']));
+        }
+        return abort(403, 'Access Denied!');
     }
 
     /**
@@ -85,13 +89,16 @@ class QuestionsController extends Controller
      */
     public function update(UpdateQuestionRequest $request, Question $question)
     {
-        $question->update([
-            'title' => $request->title,
-            'body' => $request->body
-        ]);
-        session()->flash('status', 'success');
-        session()->flash('message', 'Question has been updated and will be answered accordingly soon!');
-        return redirect(route('questions.index'));
+        if(auth()->user()->can('update-question', $question)) {
+            $question->update([
+                'title' => $request->title,
+                'body' => $request->body
+            ]);
+            session()->flash('status', 'success');
+            session()->flash('message', 'Question has been updated and will be answered accordingly soon!');
+            return redirect(route('questions.index'));
+        }
+        return abort(403);
     }
 
     /**
@@ -102,10 +109,13 @@ class QuestionsController extends Controller
      */
     public function destroy(Question $question)
     {
-        $question->delete();
-        session()->flash('status', 'success');
-        session()->flash('message', 'Question deleted!');
-        return redirect(route('questions.index'));
+        if(auth()->user()->can('delete-question', $question)) {
+            $question->delete();
+            session()->flash('status', 'success');
+            session()->flash('message', 'Question deleted!');
+            return redirect(route('questions.index'));
+        }
+        return abort(403);
     }
 
 }
