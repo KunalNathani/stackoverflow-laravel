@@ -13,8 +13,9 @@
                         <h3>Ask a Question</h3>
                     </div>
                     <div class="card-body">
-                        <form action="{{ route('questions.store') }}" method="POST">
+                        <form action="{{ route('questions.update', $question) }}" method="POST">
                             @csrf
+                            @method('PUT')
                             <div class="form-group mb-3">
                                 <label for="title">Title</label>
                                 <input type="text" placeholder="Enter Question Title" name="title" id="title"
@@ -27,7 +28,7 @@
                             <div class="form-group mb-3">
                                 <label for="body">Question</label>
                                 <input type="hidden" name="body" id="body"
-                                        value="{{ old('title', $question->title) }}"/>
+                                        value="{{ old('title', $question->body) }}"/>
                                 <trix-editor input="body" placeholder="Ask your question"
                                              class="form-control {{ $errors->has('body') ? 'is-invalid' : '' }}"></trix-editor>
                                 @error('body')

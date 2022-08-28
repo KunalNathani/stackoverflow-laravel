@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\CreateQuestionRequest;
+use App\Http\Requests\UpdateQuestionRequest;
 use App\Models\Question;
 use Illuminate\Http\Request;
 
@@ -81,9 +82,15 @@ class QuestionsController extends Controller
      * @param  \App\Models\Question  $question
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Question $question)
+    public function update(UpdateQuestionRequest $request, Question $question)
     {
-        //
+        $question->update([
+            'title' => $request->title,
+            'body' => $request->body
+        ]);
+        session()->flash('status', 'success');
+        session()->flash('message', 'Question has been updated and will be answered accordingly soon!');
+        return redirect(route('questions.index'));
     }
 
     /**
