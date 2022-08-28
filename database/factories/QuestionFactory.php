@@ -20,7 +20,6 @@ class QuestionFactory extends Factory
             'title' => rtrim($this->faker->sentence(random_int(5, 10)), '.'),
             'body' => $this->faker->paragraphs(random_int(3, 8), true),
             'views_count' => random_int(0, 10),
-            'answers_count' => random_int(0, 10),
             'votes_count' => random_int(-10, 10),
         ];
     }
