@@ -13,4 +13,9 @@ class QuestionAnswerController extends Controller
         $question->markAsBest($answer);
         return redirect()->back();
     }
+
+    public function edit(Question $question, Answer $answer)
+    {
+        return view('answers.edit', compact(['answer', 'question']));
+    }
 }

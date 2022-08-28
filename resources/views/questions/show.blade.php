@@ -2,7 +2,8 @@
 
 @section('page-level-styles')
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css" />
-@endsection
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/trix/1.3.1/trix.css" />
+    @endsection
 
 @section('content')
     <div class="container">
@@ -38,4 +39,8 @@
         </div>
         @include('answers._index')
     </div>
+@endsection
+
+@section('page-level-scripts')
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/trix/1.3.1/trix.js"></script>
 @endsection

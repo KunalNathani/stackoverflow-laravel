@@ -22,6 +22,8 @@ Route::get('/dashboard', function () {
 })->middleware(['auth'])->name('dashboard');
 
 Route::resource('questions', \App\Http\Controllers\QuestionsController::class)->except('show');
-Route::get('questions/{slug}', [\App\Http\Controllers\QuestionsController::class, 'show']);
+Route::get('questions/{slug}', [\App\Http\Controllers\QuestionsController::class, 'show'])->name('single-question');
 Route::put('questions/{question}/answers/{answer}/best-answer', [\App\Http\Controllers\QuestionAnswerController::class, 'markAsBest'])->name('markAsBest');
+Route::get('questions/{question}/answers/{answer}/edit', [\App\Http\Controllers\QuestionAnswerController::class, 'edit'])->name('edit-question');
+Route::resource('answers', \App\Http\Controllers\AnswersController::class)->except('edit');
 require __DIR__.'/auth.php';

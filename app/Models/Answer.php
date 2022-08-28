@@ -26,6 +26,14 @@ class Answer extends Model
         return $this->created_at->diffForHumans();
     }
 
+    public function isBest(Question $question)
+    {
+        return $question->best_answer_id === $this->id;
+    }
+
+    /**
+    * RELATIONSHIP METHODS
+    */
     public function question()
     {
         return $this->belongsTo(Question::class);

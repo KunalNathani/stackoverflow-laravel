@@ -2,6 +2,29 @@
     <div class="col-md-12">
         <div class="card">
             <div class="card-header">
+                <h3 class="mt-0">Contribute a Answer!</h3>
+            </div>
+            <div class="card-body">
+                <form action="{{ route('answers.store') }}" method="POST">
+                    @csrf
+                    <div class="form-group mb-3">
+                        <label for="body">Answer</label>
+                        <input type="hidden" value="{{ $question->id }}" name="q_id"/>
+                        <input type="hidden" name="body" id="body"
+                                value="{{ old('body') }}"/>
+                        <trix-editor input="body" placeholder="Ask your question"
+                                     class="form-control {{ $errors->has('body') ? 'is-invalid' : '' }}"></trix-editor>
+                        @error('body')
+                            <span class="text-danger">{{ $message }}</span>
+                        @enderror
+                    </div>
+                    <div class="form-group mb-3">
+                        <input type="submit" value="Post Answer" class="btn btn-outline-success">
+                    </div>
+            </div>
+
+            </form>
+            <div class="card-header">
                 <h3 class="mt-0">{{ \Illuminate\Support\Str::plural('Answer', $question->answers_count) }}</h3>
             </div>
             <div class="card-body">
@@ -27,6 +50,18 @@
                                         <i class="fa fa-check fa-2x"></i>
                                     </button>
                                 </form>
+                                <a href="{{ route('edit-question', ['question' => $question, 'answer'=>$answer]) }}">
+                                    <i class="fa fa-pencil text-dark fa-2x"></i>
+                                </a>
+                            </div>
+                            <div class="m-3">
+                                <form action="{{ route('answers.destroy', $answer) }}"
+                                                        class="d-inline"
+                                                        method="POST">
+                                                        @csrf
+                                                        @method('DELETE')
+                                                        <button type="submit"><i class="fa fa-trash fa-2x"></i></button>
+                            </form>
                             </div>
                         </div>
                         <div class="d-flex flex-column">
