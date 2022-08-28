@@ -23,4 +23,5 @@ Route::get('/dashboard', function () {
 
 Route::resource('questions', \App\Http\Controllers\QuestionsController::class)->except('show');
 Route::get('questions/{slug}', [\App\Http\Controllers\QuestionsController::class, 'show']);
+Route::put('questions/{question}/answers/{answer}/best-answer', [\App\Http\Controllers\QuestionAnswerController::class, 'markAsBest'])->name('markAsBest');
 require __DIR__.'/auth.php';

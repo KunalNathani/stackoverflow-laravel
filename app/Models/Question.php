@@ -12,6 +12,12 @@ class Question extends Model
 
     protected $guarded = ['id'];
 
+    public function markAsBest(Answer $answer)
+    {
+        $this->best_answer_id = $answer->id;
+        $this->save();
+    }
+
     /**
      * MUTATORS
      */
