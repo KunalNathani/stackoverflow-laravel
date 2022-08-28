@@ -19,10 +19,14 @@
                                 </a>
                             </div>
                             <div class="mt-3 ms-3">
-                                <a href="" title="Mark as Fav" class="favorite d-block text-center mb-2">
-                                    <i class="fa fa-star fa-2x text-dark"></i>
-                                </a>
-                                <h4 class="text-muted">123</h4>
+                                <form action="{{ route('markAsBest', ['question' => $question, 'answer'=>$answer]) }}" method="POST">
+                                    @csrf
+                                    @method('PUT')
+                                    <button title="Mark as Fav" class="favorite d-block text-center mb-2 text-dark border-0"
+                                            type="submit">
+                                        <i class="fa fa-check fa-2x"></i>
+                                    </button>
+                                </form>
                             </div>
                         </div>
                         <div class="d-flex flex-column">
