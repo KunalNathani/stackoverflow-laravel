@@ -21,6 +21,6 @@ Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth'])->name('dashboard');
 
-Route::resource('questions', \App\Http\Controllers\QuestionsController::class);
+Route::resource('questions', \App\Http\Controllers\QuestionsController::class)->except('show');
 Route::get('questions/{slug}', [\App\Http\Controllers\QuestionsController::class, 'show']);
 require __DIR__.'/auth.php';
