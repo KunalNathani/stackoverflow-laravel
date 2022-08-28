@@ -67,9 +67,16 @@
                                             <a href="{{ $question->url }}">{{ $question->title }}</a>
                                             <div>
                                                 <a class="btn btn-warning"
-                                                    href="{{ route('questions.edit', $question) }}">
+                                                href="{{ route('questions.edit', $question) }}">
                                                 Edit
-                                                </a>
+                                            </a>
+                                            <form action="{{ route('questions.destroy', $question) }}"
+                                                      class="d-inline"
+                                                      method="POST">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <input type="submit" class="btn btn-danger" value="Delete" />
+                                            </form>
                                             </div>
                                         </div>
                                     </h2>
