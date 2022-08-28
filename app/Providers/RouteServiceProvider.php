@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Models\Question;
 use Illuminate\Cache\RateLimiting\Limit;
 use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvider;
 use Illuminate\Http\Request;
@@ -27,6 +28,10 @@ class RouteServiceProvider extends ServiceProvider
     public function boot()
     {
         $this->configureRateLimiting();
+
+        Route::bind('slug', function($slug) {
+            return Question::where('slug', $slug)->firstOrFail();
+        });
 
         $this->routes(function () {
             Route::middleware('api')
