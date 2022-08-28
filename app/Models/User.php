@@ -43,6 +43,15 @@ class User extends Authenticatable
     ];
 
     /**
+    * ACCESSOR
+    */
+    public function getAvatarAttribute()
+    {
+        $name = $this->name;
+        return "https://ui-avatars.com/api/?size=64&rounded=true&name={$name}";
+    }
+
+    /**
      * RELATIONSHIP METHODS
      */
     public function questions()
