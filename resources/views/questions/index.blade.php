@@ -63,7 +63,15 @@
                                 </div>
                                 <div class="col-md-11">
                                     <h2 class="card-title">
-                                        <a href="{{ $question->url }}">{{ $question->title }}</a>
+                                        <div class="d-flex justify-content-between">
+                                            <a href="{{ $question->url }}">{{ $question->title }}</a>
+                                            <div>
+                                                <a class="btn btn-warning"
+                                                    href="{{ route('questions.edit', $question) }}">
+                                                Edit
+                                                </a>
+                                            </div>
+                                        </div>
                                     </h2>
                                     <p>
                                         <small>Asked By: <a href="#">{{ $question->owner->name }}</a></small>
