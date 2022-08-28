@@ -74,7 +74,7 @@ class QuestionsController extends Controller
      */
     public function edit(Question $question)
     {
-        if(Gate::allows('update-question', $question)) {
+        if($this->authorize('update', $question)) {
             return view('questions.edit', compact(['question']));
         }
         return abort(403, 'Access Denied!');
@@ -89,7 +89,7 @@ class QuestionsController extends Controller
      */
     public function update(UpdateQuestionRequest $request, Question $question)
     {
-        if(auth()->user()->can('update-question', $question)) {
+        if($this->authorize('update-question', $question)) {
             $question->update([
                 'title' => $request->title,
                 'body' => $request->body
@@ -109,7 +109,7 @@ class QuestionsController extends Controller
      */
     public function destroy(Question $question)
     {
-        if(auth()->user()->can('delete-question', $question)) {
+        if($this->authorize('delete-question', $question)) {
             $question->delete();
             session()->flash('status', 'success');
             session()->flash('message', 'Question deleted!');

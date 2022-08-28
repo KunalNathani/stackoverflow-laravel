@@ -66,13 +66,13 @@
                                         <div class="d-flex justify-content-between">
                                             <a href="{{ $question->url }}">{{ $question->title }}</a>
                                             <div>
-                                                @can('update-question', $question)
+                                                @can('update', $question)
                                                 <a class="btn btn-warning"
                                                     href="{{ route('questions.edit', $question) }}">
                                                         Edit
                                                 </a>
                                                 @endcan
-                                                @can('delete-question', $question)
+                                                @can('delete', $question)
                                                     <form action="{{ route('questions.destroy', $question) }}"
                                                             class="d-inline"
                                                             method="POST">
