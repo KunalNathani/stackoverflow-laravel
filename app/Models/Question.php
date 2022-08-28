@@ -45,6 +45,12 @@ class Question extends Model
         return 'unanswered';
     }
 
+    public function getAvatarAttribute()
+    {
+        $name = $this->owner->name;
+        return "https://ui-avatars.com/api/?size=64&rounded=true&name={$name}";
+    }
+
     /**
      * RELATIONSHIP METHODS
      */

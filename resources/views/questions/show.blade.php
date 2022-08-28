@@ -12,7 +12,22 @@
                         {!! $question->body !!}
                     </div>
                     <div class="card-footer">
-
+                        <div class="d-flex justify-content-between mr-3">
+                            <div></div>
+                            <div class="d-flex flex-column">
+                                <div class="text-end">
+                                    Asked {{ $question->created_date }}
+                                </div>
+                                <div class="d-flex mt-2">
+                                    <div>
+                                        <img src="{{ $question->avatar }}">
+                                    </div>
+                                    <div class="mt-3 ms-2">
+                                        {{ $question->owner->name }}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
