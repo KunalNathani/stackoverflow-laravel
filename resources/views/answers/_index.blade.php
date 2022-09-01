@@ -45,7 +45,7 @@
                                 <form action="{{ route('markAsBest', ['question' => $question, 'answer'=>$answer]) }}" method="POST">
                                     @csrf
                                     @method('PUT')
-                                    <button title="Mark as Fav" class="favorite d-block text-center mb-2 text-dark border-0"
+                                    <button title="Mark as Fav" class="favorite d-block text-center mb-2 text-dark border-0 btn"
                                             type="submit">
                                         <i class="fa fa-check fa-2x"></i>
                                     </button>
@@ -60,7 +60,7 @@
                                                         method="POST">
                                                         @csrf
                                                         @method('DELETE')
-                                                        <button type="submit"><i class="fa fa-trash fa-2x"></i></button>
+                                                        <button type="submit" class="btn"><i class="fa fa-trash fa-2x"></i></button>
                             </form>
                             </div>
                         </div>
