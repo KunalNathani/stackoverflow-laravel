@@ -91,4 +91,16 @@ class QuestionPolicy
     {
         //
     }
+
+    /**
+     * Determine whether the user can mark their own question favorite.
+     *
+     * @param  \App\Models\User  $user
+     * @param  \App\Models\Question  $question
+     * @return \Illuminate\Auth\Access\Response|bool
+     */
+    public function markAsFavorite(User $user, Question $question)
+    {
+        return $user->id !== $question->user_id;
+    }
 }
