@@ -57,6 +57,16 @@ class Question extends Model
         return "https://ui-avatars.com/api/?size=64&rounded=true&name={$name}";
     }
 
+    public function getIsFavoriteAttribute()
+    {
+        return $this->favorites()->where(['user_id'=> auth()->id()])->count() > 0;
+    }
+
+    public function getFavoritesCountAttribute()
+    {
+        return $this->favorites->count();
+    }
+
     /**
      * RELATIONSHIP METHODS
      */
@@ -72,6 +82,6 @@ class Question extends Model
 
     public function favorites()
     {
-        return $this->belongsToMany(User::class);
+        return $this->belongsToMany(User::class)->withTimestamps();
     }
 }
