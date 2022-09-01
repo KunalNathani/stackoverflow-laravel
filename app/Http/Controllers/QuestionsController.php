@@ -89,7 +89,7 @@ class QuestionsController extends Controller
      */
     public function update(UpdateQuestionRequest $request, Question $question)
     {
-        if($this->authorize('update-question', $question)) {
+        if($this->authorize('update', $question)) {
             $question->update([
                 'title' => $request->title,
                 'body' => $request->body
@@ -109,7 +109,7 @@ class QuestionsController extends Controller
      */
     public function destroy(Question $question)
     {
-        if($this->authorize('delete-question', $question)) {
+        if($this->authorize('delete', $question)) {
             $question->delete();
             session()->flash('status', 'success');
             session()->flash('message', 'Question deleted!');
