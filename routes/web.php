@@ -26,4 +26,6 @@ Route::get('questions/{slug}', [\App\Http\Controllers\QuestionsController::class
 Route::put('questions/{question}/answers/{answer}/best-answer', [\App\Http\Controllers\QuestionAnswerController::class, 'markAsBest'])->name('markAsBest');
 Route::get('questions/{question}/answers/{answer}/edit', [\App\Http\Controllers\QuestionAnswerController::class, 'edit'])->name('edit-question');
 Route::resource('answers', \App\Http\Controllers\AnswersController::class)->except('edit');
+Route::post('questions/{question}/favorite', [\App\Http\Controllers\FavoritesController::class, 'store'])->name('questions.favorite');
+Route::delete('questions/{question}/unfavorite', [\App\Http\Controllers\FavoritesController::class, 'destroy'])->name('questions.unfavorite');
 require __DIR__.'/auth.php';
