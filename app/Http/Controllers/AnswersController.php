@@ -62,7 +62,7 @@ class AnswersController extends Controller
      */
     public function update(UpdateAnswerRequest $request, Answer $answer)
     {
-        if ($request->hasAny(['body'])) {
+        if ($this->authorize('update') && $request->hasAny(['body'])) {
             $answer->update([
                 'body' => $request->body
             ]);
@@ -81,9 +81,12 @@ class AnswersController extends Controller
      */
     public function destroy(Answer $answer)
     {
+        if($this->authorize('delete', $answer)) {
             $answer->delete();
             session()->flash('status', 'success');
             session()->flash('message', 'Answer deleted!');
             return redirect()->back();
+        }
+        return abort(403);
     }
 }

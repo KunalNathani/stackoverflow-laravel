@@ -16,6 +16,8 @@ class QuestionAnswerController extends Controller
 
     public function edit(Question $question, Answer $answer)
     {
-        return view('answers.edit', compact(['answer', 'question']));
+        if($this->authorize('update', $answer)) {
+            return view('answers.edit', compact(['answer', 'question']));
+        }
     }
 }
