@@ -37,14 +37,20 @@ class AnswersController extends Controller
      */
     public function store(CreateAnswerRequest $request)
     {
-        auth()->user()->answers()->create(
-            [
-                'question_id' => $request->q_id,
-                'body' => $request->body,
-            ]);
-        session()->flash('status', 'success');
-        session()->flash('message', 'Answer submitted successfully!');
-        return redirect()->back();
+        try {
+            auth()->user()->answers()->create(
+                [
+                    'question_id' => $request->q_id,
+                    'body' => $request->body,
+                ]);
+            session()->flash('status', 'success');
+            session()->flash('message', 'Answer submitted successfully!');
+            return redirect()->back();
+        } catch (\Exception $e) {
+            session()->flash('status', 'danger');
+            session()->flash('message', 'Please try later!');
+            return redirect()->back();
+        }
     }
 
     /**
@@ -75,9 +81,9 @@ class AnswersController extends Controller
      */
     public function destroy(Answer $answer)
     {
-        $answer->delete();
-        session()->flash('status', 'success');
-        session()->flash('message', 'Answer deleted!');
-        return redirect()->back();
+            $answer->delete();
+            session()->flash('status', 'success');
+            session()->flash('message', 'Answer deleted!');
+            return redirect()->back();
     }
 }
