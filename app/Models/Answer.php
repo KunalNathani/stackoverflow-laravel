@@ -43,4 +43,9 @@ class Answer extends Model
     {
         return $this->belongsTo(User::class, 'user_id');
     }
+
+    public function votes()
+    {
+        return $this->morphToMany(User::class, 'vote')->withTimestamps();
+    }
 }

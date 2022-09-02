@@ -84,4 +84,9 @@ class Question extends Model
     {
         return $this->belongsToMany(User::class)->withTimestamps();
     }
+
+    public function votes()
+    {
+        return $this->morphToMany(User::class, 'vote')->withTimestamps();
+    }
 }

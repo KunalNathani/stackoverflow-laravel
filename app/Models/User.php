@@ -68,4 +68,13 @@ class User extends Authenticatable
     {
         return $this->belongsToMany(Question::class)->withTimestamps();
     }
+
+    public function votesQuestions()
+    {
+        return $this->morphedByMany(Question::class, 'vote')->withTimestamps();
+    }
+    public function votesAnswers()
+    {
+        return $this->morphedByMany(Answer::class, 'vote')->withTimestamps();
+    }
 }
