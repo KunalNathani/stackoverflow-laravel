@@ -2,12 +2,13 @@
 
 namespace App\Models;
 
+use App\Traits\Votable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Answer extends Model
 {
-    use HasFactory;
+    use HasFactory, Votable;
 
     protected $guarded = [];
 
