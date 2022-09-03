@@ -28,4 +28,6 @@ Route::get('questions/{question}/answers/{answer}/edit', [\App\Http\Controllers\
 Route::resource('answers', \App\Http\Controllers\AnswersController::class)->except('edit');
 Route::post('questions/{question}/favorite', [\App\Http\Controllers\FavoritesController::class, 'store'])->name('questions.favorite');
 Route::delete('questions/{question}/unfavorite', [\App\Http\Controllers\FavoritesController::class, 'destroy'])->name('questions.unfavorite');
+Route::post('questions/{question}/vote/{vote}', [\App\Http\Controllers\VotesController::class, 'voteQuestion'])->name('questions.vote');
+Route::post('answers/{answer}/vote/{vote}', [\App\Http\Controllers\VotesController::class, 'voteAnswer'])->name('answers.vote');
 require __DIR__.'/auth.php';
