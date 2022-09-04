@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\CreateAnswerRequest;
 use App\Http\Requests\UpdateAnswerRequest;
 use App\Models\Answer;
+use App\Notifications\NewReplyAdded;
 use Illuminate\Http\Request;
 
 class AnswersController extends Controller
@@ -38,11 +39,13 @@ class AnswersController extends Controller
     public function store(CreateAnswerRequest $request)
     {
         try {
-            auth()->user()->answers()->create(
+            $answer = auth()->user()->answers()->create(
                 [
                     'question_id' => $request->q_id,
                     'body' => $request->body,
                 ]);
+            $question = $answer->question;
+            auth()->user()->notify(new NewReplyAdded($question));
             session()->flash('status', 'success');
             session()->flash('message', 'Answer submitted successfully!');
             return redirect()->back();
