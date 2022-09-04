@@ -33,23 +33,50 @@
                     <div class="d-flex justify-content-between mr-3 mb-3">
                         <div class="d-flex">
                             <div>
-                                <a href="" title="Vote Up" class="vote-up d-block text-center text-dark">
-                                    <i class="fa fa-caret-up fa-3x"></i>
-                                </a>
-                                <h4 class="m-0 text-muted">45</h4>
-                                <a href="" title="Vote Down" class="vote-down d-block text-center text-dark">
-                                    <i class="fa fa-caret-down fa-3x"></i>
-                                </a>
+                                @auth
+                                    <form action="{{ route('answers.vote', [$answer, 1]) }}" method="POST">
+                                        @csrf
+                                        <button type="submit"
+                                                title="Vote Up"
+                                                class="vote-up d-block text-center {{ $answer->hasMarkedUpVote(auth()->user()) ? ' text-success' : 'text-dark'}} border-0">
+                                            <i class="fa fa-caret-up fa-3x"></i>
+                                        </button>
+                                    </form>
+                                    <h4 class="m-0 text-muted text-center">{{ $answer->votes_count }}</h4>
+                                    <form action="{{ route('answers.vote', [$answer, -1]) }}" method="POST">
+                                        @csrf
+                                        <button type="submit"
+                                                title="Vote Down"
+                                                class="vote-down d-block text-center {{ $answer->hasMarkedDownVote(auth()->user()) ? ' text-danger' : 'text-dark'}} border-0">
+                                            <i class="fa fa-caret-down fa-3x"></i>
+                                        </button>
+                                    </form>
+                                @else
+                                    <a href="{{ route('login') }}" title="Vote Up" class="vote-up d-block text-center text-dark">
+                                        <i class="fa fa-caret-up fa-3x"></i>
+                                    </a>
+                                    <h4 class="m-0 text-muted text-center">{{ $answer->votes_count }}</h4>
+                                    <a href="{{ route('login') }}" title="Vote Down" class="vote-down d-block text-center text-dark">
+                                        <i class="fa fa-caret-down fa-3x"></i>
+                                    </a>
+                                @endauth
                             </div>
                             <div class="mt-3 ms-3">
-                                <form action="{{ route('markAsBest', ['question' => $question, 'answer'=>$answer]) }}" method="POST">
-                                    @csrf
-                                    @method('PUT')
-                                    <button title="Mark as Fav" class="favorite d-block text-center mb-2 text-dark border-0 btn"
-                                            type="submit">
-                                        <i class="fa fa-check fa-2x"></i>
-                                    </button>
-                                </form>
+                                @can('markAsBest', $answer)
+                                    <form action="{{ route('markAsBest', ['question' => $question, 'answer'=>$answer]) }}" method="POST">
+                                        @csrf
+                                        @method('PUT')
+                                        <button title="Mark as Fav"
+                                                class="favorite d-block text-center mb-2 text-dark border-0 btn"
+                                                type="submit">
+                                            <i class="fa fa-check fa-2x {{ $answer->isBest($question) ? 'text-success' :'text-dark' }}"></i>
+                                        </button>
+                                    </form>
+                                @else
+                                    @if($answer->isBest($question))
+                                        <i class="fa fa-check fa-2x text-success"></i>
+                                    @endif
+                                @endcan
                                 <a href="{{ route('edit-question', ['question' => $question, 'answer'=>$answer]) }}">
                                     <i class="fa fa-pencil text-dark fa-2x"></i>
                                 </a>
