@@ -91,4 +91,9 @@ class AnswerPolicy
     {
         //
     }
+
+    public function markAsBest(User $user, Answer $answer)
+    {
+        return $user->id === $answer->question()->value('user_id');
+    }
 }
