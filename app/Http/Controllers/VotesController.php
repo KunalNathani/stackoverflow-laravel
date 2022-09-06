@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Answer;
 use App\Models\Question;
+use App\Notifications\NewVoteReceived;
 use Illuminate\Http\Request;
 
 class VotesController extends Controller
@@ -36,6 +37,7 @@ class VotesController extends Controller
         else
         {
             $question->vote($vote);
+            $question->owner->notify(new NewVoteReceived(auth()->user(), $question));
         }
         return redirect()->back();
     }
@@ -48,10 +50,12 @@ class VotesController extends Controller
             {
                 $answer->updateVote($vote);
             }
+
         }
         else
         {
             $answer->vote($vote);
+            $answer->author->notify(new NewVoteReceived(auth()->user(), $answer));
         }
         return redirect()->back();
     }

@@ -21,11 +21,13 @@
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
 
                 </ul>
+                @auth
                 <div class="p-2">
-                    <a href="#">
+                    <a href="{{ route('users.notifications') }}">
                         <i class="fa fa-bell text-dark"></i>
                     </a>
                 </div>
+            @endauth
 
             </div>
         </div>

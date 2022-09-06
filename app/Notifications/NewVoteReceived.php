@@ -3,24 +3,28 @@
 namespace App\Notifications;
 
 use App\Models\Question;
+use App\Models\User;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 
-class NewReplyAdded extends Notification
+class NewVoteReceived extends Notification
 {
     use Queueable;
 
-    private Question $question;
+    private Model $model;
+    private User $user;
     /**
      * Create a new notification instance.
      *
      * @return void
      */
-    public function __construct(Question $question)
+    public function __construct(User $user, Model $model)
     {
-        $this->question = $question;
+        $this->model = $model;
+        $this->user = $user;
     }
 
     /**
@@ -31,7 +35,7 @@ class NewReplyAdded extends Notification
      */
     public function via($notifiable)
     {
-        return ['mail', 'database'];
+        return ['database'];
     }
 
     /**
@@ -43,10 +47,11 @@ class NewReplyAdded extends Notification
     public function toMail($notifiable)
     {
         return (new MailMessage)
-                    ->line('A new reply was added to your question!')
-                    ->action('View Question', url("http://localhost:8000{$this->question->url}"))
+                    ->line('The introduction to the notification.')
+                    ->action('Notification Action', url('/'))
                     ->line('Thank you for using our application!');
     }
+
     /**
      * Get the array representation of the notification.
      *
@@ -55,8 +60,10 @@ class NewReplyAdded extends Notification
      */
     public function toArray($notifiable)
     {
+        $votedModel = class_baseName($this->model);
         return [
-            'question' => $this->question
+            "$votedModel" => $this->model,
+            'user' => $this->user
         ];
     }
 }

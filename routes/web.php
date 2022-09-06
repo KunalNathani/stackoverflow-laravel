@@ -30,4 +30,7 @@ Route::post('questions/{question}/favorite', [\App\Http\Controllers\FavoritesCon
 Route::delete('questions/{question}/unfavorite', [\App\Http\Controllers\FavoritesController::class, 'destroy'])->name('questions.unfavorite');
 Route::post('questions/{question}/vote/{vote}', [\App\Http\Controllers\VotesController::class, 'voteQuestion'])->name('questions.vote');
 Route::post('answers/{answer}/vote/{vote}', [\App\Http\Controllers\VotesController::class, 'voteAnswer'])->name('answers.vote');
+Route::get('/users/notifications', [\App\Http\Controllers\UsersController::class, 'notifications'])->name('users.notifications');
+Route::put('/users/notifications/all-notifications-read', [\App\Http\Controllers\UsersController::class, 'markAllAsRead'])->name('users.markAllNotificationAsRead');
+Route::put('/users/notifications/{notification}', [\App\Http\Controllers\UsersController::class, 'markAsRead'])->name('users.markNotificationAsRead');
 require __DIR__.'/auth.php';

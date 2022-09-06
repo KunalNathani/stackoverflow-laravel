@@ -16,6 +16,11 @@ trait Votable
         }
     }
 
+    public function votes()
+    {
+        return $this->morphToMany(User::class, 'vote')->withTimestamps();
+    }
+
     public function hasMarkedUpVote(User $user)
     {
         return $this->votes()->where('user_id', $user->id)->where('vote', 1)->exists();
